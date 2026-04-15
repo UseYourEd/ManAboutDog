@@ -163,16 +163,40 @@ const REVIEWS: Review[] = [
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    service: '',
+    message: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
-    // Simulate API call
-    setTimeout(() => {
-      setFormStatus('success');
+    
+    try {
+      const response = await fetch('/contact.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', service: '', message: '' });
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        setFormStatus('error');
+        setTimeout(() => setFormStatus('idle'), 5000);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -504,12 +528,19 @@ export default function App() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {formStatus === 'error' && (
+                    <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium">
+                      There was an error sending your message. Please try again or email us directly.
+                    </div>
+                  )}
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-bold uppercase tracking-wider text-slate-500">Name</label>
                       <input 
                         required
                         type="text" 
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
                         placeholder="John Doe"
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
                       />
@@ -519,6 +550,8 @@ export default function App() {
                       <input 
                         required
                         type="email" 
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
                         placeholder="john@example.com"
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
                       />
@@ -527,8 +560,12 @@ export default function App() {
                   
                   <div className="space-y-2">
                     <label className="text-sm font-bold uppercase tracking-wider text-slate-500">Service Interested In</label>
-                    <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all appearance-none bg-white">
-                      <option>Select a service</option>
+                    <select 
+                      value={formData.service}
+                      onChange={(e) => setFormData({...formData, service: e.target.value})}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all appearance-none bg-white"
+                    >
+                      <option value="">Select a service</option>
                       {SERVICES.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
                       <option value="other">Other / Multiple</option>
                     </select>
@@ -537,7 +574,10 @@ export default function App() {
                   <div className="space-y-2">
                     <label className="text-sm font-bold uppercase tracking-wider text-slate-500">Message</label>
                     <textarea 
+                      required
                       rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
                       placeholder="Tell us about your dog..."
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none"
                     ></textarea>
