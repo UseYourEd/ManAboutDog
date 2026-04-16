@@ -47,7 +47,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 // EMAIL CONFIGURATION
 // Replace with your actual email address
 // ==========================================
-$to = "hello@manaboutdog.com"; // Change this to where you want to receive emails
+$to = "admin@useyoured.com"; // Change this to where you want to receive emails
 $subject = "New Contact Request: $name - $service";
 
 $email_content = "Name: $name\n";
