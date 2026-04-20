@@ -176,7 +176,7 @@ export default function App() {
     setFormStatus('submitting');
     
     try {
-      const response = await fetch('/contact.php', {
+      const response = await fetch('./contact.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
