@@ -6,10 +6,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from './logo.png';
-import winstonAndI from './winston-and-i-2.jpg';
-import winston8 from './winston-8.jpg';
-import winston9 from './winston-9.jpg';
-import winston10 from './winston-10.jpg';
+import adoptionPic from './Adoption.jpg';
+import winstonAndFelix from './winston-and-felix.jpg';
+import winstonAndMylo from './winston-and-mylo.jpg';
+import winstonAndSully from './winston-and-sully.jpg';
+import connyAndMaddie from './winston-conny-and-maddie.jpg';
 import { 
   Dog, 
   Home, 
@@ -278,55 +279,74 @@ export default function App() {
         <div className="absolute top-40 left-10 opacity-5 -rotate-12 hidden lg:block">
           <Footprints size={120} />
         </div>
-        <div className="absolute bottom-20 right-10 opacity-5 rotate-12 hidden lg:block">
+        <div className="absolute bottom-20 left-1/2 opacity-5 rotate-12 hidden lg:block">
           <Footprints size={160} />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-orange-100 text-orange-600 rounded-full">
-              Serving Belfast & Dublin
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-slate-900 leading-[1.1] mb-8">
-              Belfast's Most <br />
-              <span className="italic text-orange-500">Trusted</span> Companion.
-            </h1>
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
-              Professional, trustworthy, and warm pet care services tailored for the modern dog owner. Giving your best friend the care they deserve.
-            </p>
-            
-            <div className="flex items-center justify-center gap-6 mb-10 text-slate-500 text-sm font-semibold">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-green-600" />
-                <span>Fully Insured</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center lg:text-left"
+            >
+              <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-orange-100 text-orange-600 rounded-full">
+                Serving Belfast & Dublin
+              </span>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] mb-8">
+                Belfast's Most <br />
+                <span className="italic text-orange-500">Trusted</span> Companion.
+              </h1>
+              <p className="max-w-2xl mx-auto lg:mx-0 text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
+                Professional, trustworthy, and warm pet care services tailored for the modern dog owner. Giving your best friend the care they deserve.
+              </p>
+              
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10 text-slate-500 text-sm font-semibold">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-green-600" />
+                  <span>Fully Insured</span>
+                </div>
+                <div className="hidden sm:block w-1 h-1 bg-slate-300 rounded-full"></div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-orange-500" />
+                  <span>Pet First Aid (Coming 2026)</span>
+                </div>
               </div>
-              <div className="w-1 h-1 bg-slate-300 rounded-full"></div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-orange-500" />
-                <span>Pet First Aid Certified (Coming 2026)</span>
-              </div>
-            </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a 
-                href="#contact" 
-                className="w-full sm:w-auto px-8 py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-xl shadow-orange-200 flex items-center justify-center gap-2 group"
-              >
-                Book Now
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="#services" 
-                className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-all"
-              >
-                Our Services
-              </a>
-            </div>
-          </motion.div>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a 
+                  href="#contact" 
+                  className="w-full sm:w-auto px-8 py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-xl shadow-orange-200 flex items-center justify-center gap-2 group"
+                >
+                  Book Now
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a 
+                  href="#services" 
+                  className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-all"
+                >
+                  Our Services
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative hidden lg:block"
+            >
+              <div className="aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border-8 border-white">
+                <img 
+                  src={adoptionPic} 
+                  alt="Dog Adoption" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute inset-0 bg-orange-500 rounded-[2rem] translate-x-6 translate-y-6 -z-10"></div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -373,7 +393,7 @@ export default function App() {
             >
               <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
                 <img 
-                  src={winstonAndI} 
+                  src={connyAndMaddie} 
                   alt="Eddie and Winston" 
                   className="w-full h-full object-cover"
                 />
@@ -417,9 +437,9 @@ export default function App() {
 
               {/* Mini Gallery */}
               <div className="grid grid-cols-3 gap-4 mt-12">
-                {[winston8, winston9, winston10].map((img, i) => (
+                {[winstonAndFelix, winstonAndMylo, winstonAndSully].map((img, i) => (
                   <div key={i} className="aspect-square rounded-2xl overflow-hidden shadow-md hover:scale-105 transition-transform cursor-pointer">
-                    <img src={img} alt={`Winston ${i+8}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`Dog friend ${i+1}`} className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
