@@ -16,6 +16,7 @@ import {
   Dog, 
   Home, 
   Footprints, 
+  PawPrint,
   Clock, 
   Baby, 
   Trash2, 
@@ -202,7 +203,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fcfaf7] font-['Montserrat'] text-slate-900 selection:bg-orange-100">
+    <div className="relative min-h-screen bg-[#fcfaf7] font-['Montserrat'] text-slate-900 selection:bg-orange-100">
       {/* Google Fonts Import */}
       <style>
         {`
@@ -274,17 +275,41 @@ export default function App() {
         </AnimatePresence>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Decorative Paw Prints */}
-        <div className="absolute top-40 left-10 opacity-5 -rotate-12 hidden lg:block">
+      {/* Decorative Globals */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
+        {/* A trail of human and dog prints */}
+        <div className="absolute top-[5%] left-[10%] opacity-[0.04] -rotate-12">
+          <PawPrint size={100} />
+        </div>
+        <div className="absolute top-[12%] right-[15%] opacity-[0.04] rotate-45">
+          <Footprints size={80} />
+        </div>
+        <div className="absolute top-[25%] left-[25%] opacity-[0.04] -rotate-45">
+          <PawPrint size={140} />
+        </div>
+        <div className="absolute top-[38%] right-[20%] opacity-[0.04] rotate-12">
           <Footprints size={120} />
         </div>
-        <div className="absolute bottom-20 left-1/2 opacity-5 rotate-12 hidden lg:block">
-          <Footprints size={160} />
+        <div className="absolute top-[50%] left-[8%] opacity-[0.04] rotate-90 inline-block text-orange-950">
+          <PawPrint size={100} />
         </div>
+        <div className="absolute top-[62%] right-[12%] opacity-[0.04] -rotate-12">
+          <PawPrint size={110} />
+        </div>
+        <div className="absolute top-[75%] left-[30%] opacity-[0.05] rotate-[160deg] text-slate-900">
+          <Footprints size={100} />
+        </div>
+        <div className="absolute top-[88%] right-[25%] opacity-[0.04] rotate-45 text-slate-900">
+          <PawPrint size={130} />
+        </div>
+        <div className="absolute top-[96%] left-[40%] opacity-[0.04] rotate-[-20deg]">
+          <Footprints size={90} />
+        </div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -293,11 +318,12 @@ export default function App() {
               className="text-center lg:text-left"
             >
               <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase bg-orange-100 text-orange-600 rounded-full">
-                Serving Belfast & Dublin
+                Serving Ireland; Belfast and Dublin based.
               </span>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] mb-8">
-                Belfast born, breed and initially trained. <br />
-                <span className="text-3xl md:text-4xl lg:text-5xl italic text-orange-500 mt-4 block">Dublin to grow up... now barking mad about both.</span>
+                Belfast born and breed<br />
+                Dublin trained.<br />
+                <span className="text-3xl md:text-4xl lg:text-5xl italic text-orange-500 mt-4 block">Barking mad about both.</span>
               </h1>
               <p className="max-w-2xl mx-auto lg:mx-0 text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
                 Professional, dependable dog lover, escaped from the corporate world to bring you and your pet the best care.
@@ -336,7 +362,7 @@ export default function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative mt-12 lg:mt-0"
+              className="relative mt-8 lg:mt-0 max-w-sm mx-auto sm:max-w-md lg:max-w-none w-full"
             >
               <div className="aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border-8 border-white">
                 <img 
@@ -352,7 +378,7 @@ export default function App() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 bg-white">
+      <section id="services" className="py-24 bg-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-serif font-medium mb-4">Tailored Care for Every Need</h2>
@@ -383,7 +409,7 @@ export default function App() {
       </section>
 
       {/* About Us Section */}
-      <section id="about" className="py-24 bg-[#fcfaf7]">
+      <section id="about" className="py-24 bg-[#fcfaf7] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
