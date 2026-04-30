@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 async function createZip() {
   const zip = new AdmZip();
   const sourcePath = path.join(__dirname, 'dist');
-  const outPath = path.join(__dirname, 'Production-Site-Man-About-Dog.zip');
+  const outPath = path.join(__dirname, 'public', 'man-about-dog-production.zip');
   
   // Add the entire dist folder 
   zip.addLocalFolder(sourcePath);

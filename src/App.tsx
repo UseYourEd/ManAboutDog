@@ -11,6 +11,7 @@ import winstonAndFelix from './winston-and-felix.jpg';
 import winstonAndMylo from './winston-and-mylo.jpg';
 import winstonAndSully from './winston-and-sully.jpg';
 import connyAndMaddie from './winston-conny-and-maddie.jpg';
+import winstonAndI from './winston-and-i.jpg';
 import { 
   Dog, 
   Home, 
@@ -295,11 +296,11 @@ export default function App() {
                 Serving Belfast & Dublin
               </span>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-slate-900 leading-[1.1] mb-8">
-                Belfast's Most <br />
-                <span className="italic text-orange-500">Trusted</span> Companion.
+                Belfast born, breed and initially trained. <br />
+                <span className="text-3xl md:text-4xl lg:text-5xl italic text-orange-500 mt-4 block">Dublin to grow up... now barking mad about both.</span>
               </h1>
               <p className="max-w-2xl mx-auto lg:mx-0 text-lg md:text-xl text-slate-600 mb-10 leading-relaxed">
-                Professional, trustworthy, and warm pet care services tailored for the modern dog owner. Giving your best friend the care they deserve.
+                Professional, dependable dog lover, escaped from the corporate world to bring you and your pet the best care.
               </p>
               
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10 text-slate-500 text-sm font-semibold">
@@ -335,7 +336,7 @@ export default function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative hidden lg:block"
+              className="relative mt-12 lg:mt-0"
             >
               <div className="aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl relative z-10 border-8 border-white">
                 <img 
@@ -393,7 +394,7 @@ export default function App() {
             >
               <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
                 <img 
-                  src={connyAndMaddie} 
+                  src={winstonAndI} 
                   alt="Eddie and Winston" 
                   className="w-full h-full object-cover"
                 />
