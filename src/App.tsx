@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from './logo.png';
 import adoptionPic from './Adoption.jpg';
@@ -32,8 +32,62 @@ import {
   ChevronRight,
   Send,
   Star,
-  Quote
+  Quote,
+  ExternalLink,
+  Play
 } from 'lucide-react';
+
+const SOCIAL_LINKS = {
+  instagram: 'https://www.instagram.com/man_aboutdog/',
+  instagramEmbed: 'https://www.instagram.com/man_aboutdog/embed',
+  youtube: 'https://www.youtube.com/@Man_AboutDog',
+};
+
+type YouTubeVideo = {
+  id: string;
+  title: string;
+  published: string;
+  link: string;
+  thumbnail: string;
+};
+
+const INITIAL_YOUTUBE_VIDEOS: YouTubeVideo[] = [
+  {
+    id: '58Nqq3GYcPk',
+    title: 'A beagle called Daisy just loves attention #dog #dogs #dogshorts',
+    published: '2026-07-21T09:00:25+00:00',
+    link: 'https://www.youtube.com/shorts/58Nqq3GYcPk',
+    thumbnail: 'https://i.ytimg.com/vi/58Nqq3GYcPk/hqdefault.jpg',
+  },
+  {
+    id: 'SH3Vc1j6UK0',
+    title: 'Beagle cosies up to Bulldog x #dog #dogs #dogshorts',
+    published: '2026-07-20T06:00:36+00:00',
+    link: 'https://www.youtube.com/shorts/SH3Vc1j6UK0',
+    thumbnail: 'https://i.ytimg.com/vi/SH3Vc1j6UK0/hqdefault.jpg',
+  },
+  {
+    id: 'zcOMBmZCieI',
+    title: 'cocker spaniel takes a bulldog x for a walk #dog #dogs #dogshorts',
+    published: '2026-07-18T18:45:28+00:00',
+    link: 'https://www.youtube.com/shorts/zcOMBmZCieI',
+    thumbnail: 'https://i.ytimg.com/vi/zcOMBmZCieI/hqdefault.jpg',
+  },
+  {
+    id: '1-Ph8y_-TWs',
+    title: 'Beagle demands belly rubs - #dog #dogs #dogshorts',
+    published: '2026-07-18T07:00:19+00:00',
+    link: 'https://www.youtube.com/shorts/1-Ph8y_-TWs',
+    thumbnail: 'https://i.ytimg.com/vi/1-Ph8y_-TWs/hqdefault.jpg',
+  },
+  {
+    id: 'clGa5WpRbo8',
+    title: 'Dinner time - feeding the #dogs',
+    published: '2026-07-16T06:15:32+00:00',
+    link: 'https://www.youtube.com/watch?v=clGa5WpRbo8',
+    thumbnail: 'https://i.ytimg.com/vi/clGa5WpRbo8/hqdefault.jpg',
+  },
+];
 
 // --- Types ---
 type Service = {
@@ -167,6 +221,8 @@ const REVIEWS: Review[] = [
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [youtubeVideos, setYoutubeVideos] = useState<YouTubeVideo[]>(INITIAL_YOUTUBE_VIDEOS);
+  const [activeVideoId, setActiveVideoId] = useState<string>(INITIAL_YOUTUBE_VIDEOS[0].id);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     name: '',
@@ -174,6 +230,23 @@ export default function App() {
     service: '',
     message: ''
   });
+
+  useEffect(() => {
+    fetch('./youtube-feed.php')
+      .then((res) => {
+        if (!res.ok) throw new Error('PHP feed unavailable');
+        return res.json();
+      })
+      .then((data) => {
+        if (data && Array.isArray(data.videos) && data.videos.length > 0) {
+          setYoutubeVideos(data.videos);
+          setActiveVideoId(data.videos[0].id);
+        }
+      })
+      .catch(() => {
+        // Uses pre-populated latest videos from @Man_AboutDog when PHP is not running locally
+      });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -221,9 +294,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="Man About Dog Logo" className="h-12 w-auto" />
-              <span className="text-xl font-bold tracking-tight uppercase text-slate-900">
-                Man About <span className="text-orange-500">Dog</span>
+              <img src={logo} alt="ManAboutDog Logo" className="h-12 w-auto" />
+              <span className="text-xl font-bold tracking-tight text-slate-900">
+                ManAbout<span className="text-orange-500">Dog</span>
               </span>
             </div>
 
@@ -232,6 +305,31 @@ export default function App() {
               <a href="#services" className="text-sm font-medium hover:text-orange-500 transition-colors">Services</a>
               <a href="#about" className="text-sm font-medium hover:text-orange-500 transition-colors">About Us</a>
               <a href="#reviews" className="text-sm font-medium hover:text-orange-500 transition-colors">Reviews</a>
+              <a href="#social" className="text-sm font-medium hover:text-orange-500 transition-colors">Socials</a>
+              
+              <div className="flex items-center gap-3 pl-2 border-l border-slate-200">
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-slate-600 hover:text-orange-500 hover:bg-orange-50 rounded-full transition-all"
+                  title="Follow @man_aboutdog on Instagram"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+                <a
+                  href={SOCIAL_LINKS.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-full transition-all"
+                  title="Subscribe to @Man_AboutDog on YouTube"
+                  aria-label="YouTube"
+                >
+                  <Youtube size={20} />
+                </a>
+              </div>
+
               <a 
                 href="#contact" 
                 className="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
@@ -240,13 +338,36 @@ export default function App() {
               </a>
             </div>
 
-            {/* Mobile Menu Toggle */}
-            <button 
-              className="md:hidden p-2 text-slate-600"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X /> : <Menu />}
-            </button>
+            {/* Mobile Socials + Menu Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <a
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-slate-600 hover:text-orange-500 transition-colors"
+                title="Instagram"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href={SOCIAL_LINKS.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-slate-600 hover:text-red-600 transition-colors"
+                title="YouTube"
+                aria-label="YouTube"
+              >
+                <Youtube size={20} />
+              </a>
+              <button 
+                className="p-2 text-slate-600"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle Menu"
+              >
+                {isMenuOpen ? <X /> : <Menu />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -263,6 +384,7 @@ export default function App() {
                 <a href="#services" className="block text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Services</a>
                 <a href="#about" className="block text-lg font-medium" onClick={() => setIsMenuOpen(false)}>About Us</a>
                 <a href="#reviews" className="block text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Reviews</a>
+                <a href="#social" className="block text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Socials</a>
                 <a 
                   href="#contact" 
                   className="block w-full text-center bg-slate-900 text-white py-3 rounded-xl font-semibold"
@@ -588,54 +710,132 @@ export default function App() {
       <section id="social" className="py-24 bg-[#fcfaf7] relative z-10 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif font-medium mb-4">Follow the Pack</h2>
+            <h2 className="text-3xl md:text-5xl font-serif font-medium mb-4">Socials - see the fun we have</h2>
             <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full mb-6"></div>
             <p className="max-w-2xl mx-auto text-slate-500 font-medium">
-              Keep up with our latest adventures on Instagram and YouTube.
+              Keep up with our latest adventures with Winston and the pack on Instagram and YouTube.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
             {/* Instagram Feed Area */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100 text-center flex flex-col h-[500px]">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white">
-                  <Instagram className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold">Instagram</h3>
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-xl border border-slate-100 flex flex-col">
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Instagram className="w-6 h-6" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-xl font-bold group-hover:text-orange-500 transition-colors">Instagram</h3>
+                    <p className="text-xs text-slate-400 font-semibold">@man_aboutdog</p>
+                  </div>
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 text-orange-600 text-xs font-bold hover:bg-orange-500 hover:text-white transition-all"
+                >
+                  Follow Us
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
-              
-              <div className="flex-grow flex items-center justify-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-8">
-                <div className="text-slate-500 max-w-sm">
-                  <p className="mb-4 font-medium text-slate-700">To display your live Instagram feed here:</p>
-                  <ul className="text-sm space-y-2 text-left list-disc list-inside bg-white p-4 rounded-lg shadow-sm border border-slate-100">
-                    <li>Create an account with a widget provider like <a href="https://elfsight.com/instagram-feed-instashow/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Elfsight</a> or <a href="https://curator.io/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Curator.io</a></li>
-                    <li>Connect your Instagram account to generate an embed code snippet.</li>
-                    <li>Paste the generated HTML code directly over this section's developer placeholder block in <code className="text-xs bg-slate-100 px-1 rounded">src/App.tsx</code>.</li>
-                  </ul>
-                  <p className="mt-6 text-xs bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold uppercase tracking-wider inline-block">Placeholder Area</p>
-                </div>
+
+              <div className="flex-grow rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 min-h-[480px]">
+                <iframe
+                  src={SOCIAL_LINKS.instagramEmbed}
+                  title="ManAboutDog Instagram Feed"
+                  className="w-full h-full min-h-[480px] border-0"
+                  loading="lazy"
+                  allowTransparency={true}
+                />
               </div>
             </div>
 
             {/* YouTube Feed Area */}
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100 text-center flex flex-col h-[500px]">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white">
-                  <Youtube className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold">YouTube</h3>
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-xl border border-slate-100 flex flex-col">
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <a
+                  href={SOCIAL_LINKS.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group"
+                >
+                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <Youtube className="w-6 h-6" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-xl font-bold group-hover:text-red-600 transition-colors">YouTube</h3>
+                    <p className="text-xs text-slate-400 font-semibold">@Man_AboutDog</p>
+                  </div>
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 text-red-600 text-xs font-bold hover:bg-red-600 hover:text-white transition-all"
+                >
+                  Subscribe
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
-              
-              <div className="flex-grow flex items-center justify-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-8">
-                <div className="text-slate-500 max-w-sm">
-                  <p className="mb-4 font-medium text-slate-700">To display your live YouTube videos here:</p>
-                  <ul className="text-sm space-y-2 text-left list-disc list-inside bg-white p-4 rounded-lg shadow-sm border border-slate-100">
-                    <li>You can paste a standard YouTube iframe embed code for a specific video or playlist channel.</li>
-                    <li>Alternatively, use a tool like <a href="https://elfsight.com/youtube-gallery-widget/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Elfsight YouTube Gallery</a> to generate a dynamic feed.</li>
-                    <li>Replace this block with the iframe or script in <code className="text-xs bg-slate-100 px-1 rounded">src/App.tsx</code>.</li>
-                  </ul>
-                  <p className="mt-6 text-xs bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold uppercase tracking-wider inline-block">Placeholder Area</p>
+
+              {/* Active Video Player */}
+              <div className="aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 shadow-md mb-5">
+                <iframe
+                  src={`https://www.youtube.com/embed/${activeVideoId}`}
+                  title="ManAboutDog Latest YouTube Video"
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+
+              {/* Recent Channel Uploads Selector */}
+              <div className="flex-grow flex flex-col">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 text-left">
+                  Latest Uploads
+                </p>
+                <div className="space-y-2.5 overflow-y-auto max-h-[210px] pr-1">
+                  {youtubeVideos.slice(0, 5).map((video) => {
+                    const isSelected = video.id === activeVideoId;
+                    return (
+                      <button
+                        key={video.id}
+                        type="button"
+                        onClick={() => setActiveVideoId(video.id)}
+                        className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left transition-all border ${
+                          isSelected
+                            ? 'bg-orange-50/80 border-orange-200 text-slate-900 shadow-sm'
+                            : 'bg-slate-50/70 border-transparent hover:bg-slate-100 text-slate-700'
+                        }`}
+                      >
+                        <div className="relative w-20 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-slate-200">
+                          <img
+                            src={video.thumbnail}
+                            alt={video.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
+                            <Play className={`w-4 h-4 ${isSelected ? 'text-orange-400 fill-orange-400' : 'text-white fill-white'}`} />
+                          </div>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-semibold line-clamp-2 leading-snug">
+                            {video.title}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -767,23 +967,36 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="Man About Dog Logo" className="h-10 w-auto" />
-              <span className="text-lg font-bold tracking-tight uppercase">
-                Man About <span className="text-orange-500">Dog</span>
+              <img src={logo} alt="ManAboutDog Logo" className="h-10 w-auto" />
+              <span className="text-lg font-bold tracking-tight">
+                ManAbout<span className="text-orange-500">Dog</span>
               </span>
             </div>
 
             <div className="text-slate-500 text-sm font-medium">
-              © 2026 Man About Dog. Proudly serving Belfast & Dublin.
+              © 2026 ManAboutDog. Proudly serving Belfast & Dublin.
             </div>
 
             <div className="flex items-center gap-6">
-              <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors" title="Instagram"><Instagram size={20} /></a>
-              <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors" title="YouTube"><Youtube size={20} /></a>
-              <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors" title="TikTok">
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
-                </svg>
+              <a
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-orange-500 transition-colors"
+                title="Follow @man_aboutdog on Instagram"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href={SOCIAL_LINKS.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-red-600 transition-colors"
+                title="Subscribe to @Man_AboutDog on YouTube"
+                aria-label="YouTube"
+              >
+                <Youtube size={20} />
               </a>
             </div>
           </div>
