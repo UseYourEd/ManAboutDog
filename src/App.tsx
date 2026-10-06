@@ -26,6 +26,7 @@ import {
   Youtube,
   Camera,
   ShieldCheck,
+  HeartPulse,
   Menu,
   X,
   ChevronRight,
@@ -330,15 +331,15 @@ export default function App() {
               </p>
               
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10 text-slate-500 text-sm font-semibold">
-                <div className="flex items-center gap-2">
+                <a href="/Insurance%20Certificate.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
                   <ShieldCheck className="w-5 h-5 text-green-600" />
                   <span>Fully Insured</span>
-                </div>
+                </a>
                 <div className="hidden sm:block w-1 h-1 bg-slate-300 rounded-full"></div>
-                <div className="flex items-center gap-2">
+                <a href="/1st%20aid%20Certificate.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
                   <Clock className="w-5 h-5 text-orange-500" />
-                  <span>Pet First Aid (Coming 2026)</span>
-                </div>
+                  <span>Canine First Aid Level 2 certified</span>
+                </a>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -404,6 +405,64 @@ export default function App() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Peace of Mind Section */}
+      <section className="py-24 bg-orange-500 text-white relative z-10 overflow-hidden shadow-2xl shadow-orange-500/20">
+        {/* Decorative background paw */}
+        <div className="absolute -right-20 -bottom-20 opacity-[0.05] rotate-45 pointer-events-none text-black">
+          <PawPrint size={400} />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-medium mb-4">Peace of Mind</h2>
+            <div className="w-20 h-1 bg-orange-200 mx-auto rounded-full mb-6"></div>
+            <p className="max-w-2xl mx-auto text-lg text-orange-50 mb-10 leading-relaxed font-medium">
+              We treat your pets like our own. Official business means uncompromising safety and care.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <motion.a
+              href="/Insurance%20Certificate.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="block bg-white/10 backdrop-blur-sm p-8 rounded-3xl border border-white/20 text-center hover:bg-white/15 transition-all shadow-xl"
+            >
+              <div className="w-16 h-16 bg-white text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-orange-100 opacity-0 hover:opacity-100 transition-opacity"></div>
+                <ShieldCheck className="w-8 h-8 relative z-10" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Fully Insured</h3>
+              <p className="text-orange-50 leading-relaxed">
+                Comprehensive insurance coverage for all our services, giving you absolute confidence when your best friend is in our care.
+              </p>
+            </motion.a>
+
+            <motion.a
+              href="/1st%20aid%20Certificate.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="block bg-white/10 backdrop-blur-sm p-8 rounded-3xl border border-white/20 text-center hover:bg-white/15 transition-all shadow-xl"
+            >
+              <div className="w-16 h-16 bg-white text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-orange-100 opacity-0 hover:opacity-100 transition-opacity"></div>
+                <HeartPulse className="w-8 h-8 relative z-10" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Canine First Aid Level 2 Certified</h3>
+              <p className="text-orange-50 leading-relaxed">
+                Professionally trained and certified in Canine First Aid Level 2. Always prepared to handle any situation with expertise.
+              </p>
+            </motion.a>
           </div>
         </div>
       </section>
@@ -521,6 +580,65 @@ export default function App() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Media Feed Section */}
+      <section id="social" className="py-24 bg-[#fcfaf7] relative z-10 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-medium mb-4">Follow the Pack</h2>
+            <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full mb-6"></div>
+            <p className="max-w-2xl mx-auto text-slate-500 font-medium">
+              Keep up with our latest adventures on Instagram and YouTube.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Instagram Feed Area */}
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100 text-center flex flex-col h-[500px]">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white">
+                  <Instagram className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold">Instagram</h3>
+              </div>
+              
+              <div className="flex-grow flex items-center justify-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-8">
+                <div className="text-slate-500 max-w-sm">
+                  <p className="mb-4 font-medium text-slate-700">To display your live Instagram feed here:</p>
+                  <ul className="text-sm space-y-2 text-left list-disc list-inside bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                    <li>Create an account with a widget provider like <a href="https://elfsight.com/instagram-feed-instashow/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Elfsight</a> or <a href="https://curator.io/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Curator.io</a></li>
+                    <li>Connect your Instagram account to generate an embed code snippet.</li>
+                    <li>Paste the generated HTML code directly over this section's developer placeholder block in <code className="text-xs bg-slate-100 px-1 rounded">src/App.tsx</code>.</li>
+                  </ul>
+                  <p className="mt-6 text-xs bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold uppercase tracking-wider inline-block">Placeholder Area</p>
+                </div>
+              </div>
+            </div>
+
+            {/* YouTube Feed Area */}
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100 text-center flex flex-col h-[500px]">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white">
+                  <Youtube className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold">YouTube</h3>
+              </div>
+              
+              <div className="flex-grow flex items-center justify-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl p-8">
+                <div className="text-slate-500 max-w-sm">
+                  <p className="mb-4 font-medium text-slate-700">To display your live YouTube videos here:</p>
+                  <ul className="text-sm space-y-2 text-left list-disc list-inside bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                    <li>You can paste a standard YouTube iframe embed code for a specific video or playlist channel.</li>
+                    <li>Alternatively, use a tool like <a href="https://elfsight.com/youtube-gallery-widget/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline font-semibold">Elfsight YouTube Gallery</a> to generate a dynamic feed.</li>
+                    <li>Replace this block with the iframe or script in <code className="text-xs bg-slate-100 px-1 rounded">src/App.tsx</code>.</li>
+                  </ul>
+                  <p className="mt-6 text-xs bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-bold uppercase tracking-wider inline-block">Placeholder Area</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
